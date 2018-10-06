@@ -1,10 +1,13 @@
+import os
 import sqlite3
 
 from .models import DatasetModel
 
 class DatabaseController:
+    _OUTPUT_FILE_NAME = '/rackfocus_out.db'
+
     def __init__(self, output_loc):
-        self.conn = sqlite3.connect(output_loc + '/out.db')
+        self.conn = sqlite3.connect(os.path.join(output_loc, self._OUTPUT_FILE_NAME))
         self.cursor = self.conn.cursor()
 
     def _create_table(self, table_name, schema):
