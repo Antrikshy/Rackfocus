@@ -18,7 +18,7 @@ All that's required to run Rackfocus is Python 3 (I'm pretty certain as low as 3
 Installing + Running
 ~~~~~~~~~~~~~~~~~~~~
 
-You can find Rackfocus on PyPI using pip *(soon!)*::
+You can find Rackfocus on PyPI using pip::
 
   pip install rackfocus
 
