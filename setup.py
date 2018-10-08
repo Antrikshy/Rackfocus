@@ -5,13 +5,14 @@ with open('README.rst', 'r') as fh:
 
 setuptools.setup(
     name='rackfocus',
-    version='1.0',
+    version='1.0.0',
     author='Antriksh Yadav',
     author_email='antrikshy@gmail.com',
     description=('CLI utility to download and compile '
                  'IMDb datasets into an SQLite database.'),
     long_description=long_description,
     url='https://github.com/Antrikshy/Rackfocus',
+    packages=['rackfocus'],
     entry_points = {
         'console_scripts': [
             'rackfocus=rackfocus.run:main'
