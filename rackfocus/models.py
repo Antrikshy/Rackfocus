@@ -1,8 +1,15 @@
 from abc import ABC, abstractmethod
 
 class DatasetModel(ABC):
-    name : str
-    sqlite_schema : str
+    @property
+    @abstractmethod
+    def name(self):
+        pass
+
+    @property
+    @abstractmethod
+    def sqlite_schema(self):
+        pass
 
     def get_download_url(self):
         return 'https://datasets.imdbws.com/' + self.get_file_name()
@@ -106,13 +113,7 @@ class TitleBasics(DatasetModel):
         endYear = self._sanitize_and_convert_value(values[6], int)
         runtimeMinutes = self._sanitize_and_convert_value(values[7], int)
         genres = self._sanitize_and_convert_value(values[8], str)
-        out = []
-        if genres is not None:
-            for genre in genres.split(','):
-                out.append((tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genre))
-        else:
-            out.append((tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, None))
-        return out
+        return [(tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)]
 
 class TitleCrew(DatasetModel):
     # NOTE: The schema for this was significantly modified from that of the

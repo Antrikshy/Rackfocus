@@ -5,7 +5,7 @@ with open('README.rst', 'r') as fh:
 
 setuptools.setup(
     name='rackfocus',
-    version='1.0.0',
+    version='1.1.0',
     author='Antriksh Yadav',
     author_email='antrikshy@gmail.com',
     description=('CLI utility to download and compile '
