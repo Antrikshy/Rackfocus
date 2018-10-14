@@ -96,7 +96,7 @@ Get all feature films directed by Michael Bay::
       and job='director'
       and titleType='movie';
 
-Get all comedy feature films with an IMDb rating between 4.0 and 6.0::
+Get all comedy feature films with an IMDb rating between 4.0 and 6.0, released in the 21st century::
 
   select
       distinct primaryTitle
@@ -106,6 +106,8 @@ Get all comedy feature films with an IMDb rating between 4.0 and 6.0::
   where
       averageRating > 4.0
       and averageRating < 6.0
+      and genres like '%Comedy%'
+      and startYear >= 2000
       and titleType='movie';
 
 Contributing
