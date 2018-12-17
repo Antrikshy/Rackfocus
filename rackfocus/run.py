@@ -1,23 +1,16 @@
-import sys
 import uuid
+import argparse
 
 from .compilation import Compiler
 
-def show_help():
-    print (
-        "Usage: rackfocus ./path/to/working/dir ./path/to/output/dir\n"
-        "    (working directory is restored to original state)"
-    )
 
 def main():
-    if len(sys.argv) != 3:
-        show_help()
-        sys.exit(1)
-
-    working_dir = sys.argv[1] + '/rackfocus_{}'.format(uuid.uuid4().hex[:8])
-    output_dir = sys.argv[2]
-
-    compiler = Compiler(working_dir, output_dir)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('working', nargs='?', help='Temporary directory. Is restored to original state once done.')
+    parser.add_argument('output', nargs='?', help='Output directory of sqlite file.')
+    args = parser.parse_args()
+    
+    compiler = Compiler(args.working, args.output)
     compiler.fetch_datasets()
     compiler.setup_database()
     compiler.write_database()
