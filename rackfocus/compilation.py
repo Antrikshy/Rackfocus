@@ -9,7 +9,7 @@ class Compiler:
         self.output_loc = output_loc
         os.makedirs(self.working_dir, exist_ok=True)
         os.makedirs(self.output_loc, exist_ok=True)
-        self.db = db = DatabaseController(output_loc)
+        self.db = DatabaseController(output_loc)
 
     def fetch_datasets(self):
         for model_class in DatasetModel.__subclasses__():
