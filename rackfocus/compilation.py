@@ -20,8 +20,12 @@ class Compiler:
             with urllib.request.urlopen(download_url) as response, open(output_file, 'wb') as out:
                 shutil.copyfileobj(response, out)
 
-    def cleanup_datasets(self):
+    def cleanup_datasets(self, delete_db=False):
         shutil.rmtree(self.working_dir)
+        """In case of unexpected interruptions that require cleanup"""
+        if delete_db:
+            self.close_database()
+            self.db.delete_db()
 
     def setup_database(self):
         """Primes database connections, drops and re-creates all tables."""

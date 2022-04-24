@@ -7,8 +7,13 @@ class DatabaseController:
     _OUTPUT_FILE_NAME = 'rackfocus_out.db'
 
     def __init__(self, output_loc):
-        self.conn = sqlite3.connect(os.path.join(output_loc, self._OUTPUT_FILE_NAME))
+        self.output_loc = output_loc
+        self.conn = sqlite3.connect(self._db_location)
         self.cursor = self.conn.cursor()
+
+    @property
+    def _db_location(self):
+        return os.path.join(self.output_loc, self._OUTPUT_FILE_NAME)
 
     def _create_table(self, table_name, schema):
         self.cursor.execute('create table {} ({})'.format(table_name, schema))
@@ -37,3 +42,8 @@ class DatabaseController:
 
     def close_db(self):
         self.conn.close()
+
+    def delete_db(self):
+        """Deletes the entire database file, used for cleanup on unexpected
+        interruptions."""
+        os.remove(self._db_location)

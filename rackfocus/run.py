@@ -1,5 +1,7 @@
-import uuid
 import argparse
+import signal
+import sys
+import uuid
 
 from .compilation import Compiler
 
@@ -12,6 +14,13 @@ def main():
 
     working_dir = args.working + '/rackfocus_{}'.format(uuid.uuid4().hex[:8])
     compiler = Compiler(working_dir, args.output)
+
+    # Handling unexpected interruptions
+    def _handle_interrupt(signum, _):
+        signal.signal(signum, signal.SIG_IGN)
+        compiler.cleanup_datasets(delete_db=True)
+        sys.exit(signal.SIGINT)
+    signal.signal(signal.SIGINT, _handle_interrupt)
 
     compiler.fetch_datasets()
     compiler.setup_database()
